@@ -25,6 +25,8 @@
 		<nav id="nav">
 			<a href="#" class="icon solid fa-home"><span>Home</span></a>
 			<a href="#scrambler" class="icon solid fa-random"><span>Scrambler</span></a>
+			<a href="#steg-encode" class="icon solid fa-lock"><span>Encode</span></a>
+			<a href="#steg-decode" class="icon solid fa-unlock"><span>Decode</span></a>
 			<a href="https://github.com/eric-beck" class="icon brands fa-github"><span>GitHub</span></a>
 			<a href="https://www.linkedin.com/in/eric-beck/" class="icon brands fa-linkedin"><span>LinkedIn</span></a>
 		</nav>
@@ -64,6 +66,75 @@
 							</div>
 							<div class="col-12">
 								<input type="text" id="outputText" name="outputText" placeholder="Scrambled" readonly>
+							</div>
+						</div>
+					</div>
+				</form>
+			</article>
+
+			<!-- Steganography Encode -->
+			<article id="steg-encode" class="panel">
+				<header>
+					<h2>Steganography Encoder</h2>
+				</header>
+				<p>
+					Hide a secret message inside an image using steganography.<br/>
+					The message is embedded in the pixel data and is invisible to the naked eye.
+				</p>
+				<form onsubmit="return false;">
+					<div>
+						<div class="row">
+							<div class="col-12">
+								<label for="steg-encode-file" style="display:block; margin-bottom:0.5em;">Select a carrier image (PNG recommended):</label>
+								<input type="file" id="steg-encode-file" accept="image/*" onchange="stegLoadEncodeImage()" />
+							</div>
+							<div class="col-12">
+								<canvas id="steg-encode-canvas" style="display:none; max-width:100%; margin:1em 0; border:1px solid rgba(255,255,255,0.15); border-radius:4px;"></canvas>
+							</div>
+							<div class="col-12">
+								<textarea id="steg-encode-text" placeholder="Enter your secret message here…" rows="4"></textarea>
+							</div>
+							<div class="col-12">
+								<div id="steg-encode-status" style="display:none; margin-bottom:1em; font-size:0.9em;"></div>
+							</div>
+							<div class="col-6">
+								<button type="button" onclick="stegEncode()">Encode</button>
+							</div>
+							<div class="col-6">
+								<button type="button" id="steg-encode-download" style="display:none;">Download Encoded Image</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</article>
+
+			<!-- Steganography Decode -->
+			<article id="steg-decode" class="panel">
+				<header>
+					<h2>Steganography Decoder</h2>
+				</header>
+				<p>
+					Extract a hidden message from a steganography-encoded image.<br/>
+					Load an image that was previously encoded and click Decode.
+				</p>
+				<form onsubmit="return false;">
+					<div>
+						<div class="row">
+							<div class="col-12">
+								<label for="steg-decode-file" style="display:block; margin-bottom:0.5em;">Select an encoded image:</label>
+								<input type="file" id="steg-decode-file" accept="image/png" onchange="stegLoadDecodeImage()" />
+							</div>
+							<div class="col-12">
+								<canvas id="steg-decode-canvas" style="display:none; max-width:100%; margin:1em 0; border:1px solid rgba(255,255,255,0.15); border-radius:4px;"></canvas>
+							</div>
+							<div class="col-12">
+								<div id="steg-decode-status" style="display:none; margin-bottom:1em; font-size:0.9em;"></div>
+							</div>
+							<div class="col-12">
+								<button type="button" onclick="stegDecode()">Decode</button>
+							</div>
+							<div class="col-12">
+								<textarea id="steg-decode-text" placeholder="Decoded message will appear here…" rows="4" readonly></textarea>
 							</div>
 						</div>
 					</div>
@@ -117,6 +188,7 @@
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 	<script src="assets/js/scrambler.js"></script>
+	<script src="assets/js/steganography.js"></script>
 </body>
 
 </html>
